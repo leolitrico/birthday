@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>L'Invitation — Une énigme scellée</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:#04030b;min-height:100%;overflow-x:hidden;}
+body{font-family:'Cormorant Garamond',Georgia,serif;color:#e8d9b5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+#app{min-height:100vh;background:#04030b;position:relative;overflow-x:hidden;}
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 18% 22%,rgba(50,20,80,.22) 0%,transparent 50%),
+             radial-gradient(ellipse at 82% 78%,rgba(85,18,38,.18) 0%,transparent 50%),
+             radial-gradient(ellipse at 50% 50%,rgba(18,8,40,.35) 0%,transparent 65%);}
+.bg::after{content:'';position:absolute;inset:0;opacity:.5;
+  background-image:radial-gradient(1px 1px at 12% 18%,rgba(201,168,76,.45),transparent),
+    radial-gradient(1px 1px at 33% 52%,rgba(201,168,76,.3),transparent),
+    radial-gradient(1px 1px at 61% 12%,rgba(255,255,255,.2),transparent),
+    radial-gradient(1px 1px at 81% 77%,rgba(201,168,76,.35),transparent),
+    radial-gradient(1px 1px at 46% 67%,rgba(255,255,255,.15),transparent),
+    radial-gradient(1px 1px at 74% 36%,rgba(201,168,76,.25),transparent);
+  animation:tw 9s ease-in-out infinite alternate;}
+@keyframes tw{0%{opacity:.4}50%{opacity:.75}100%{opacity:.35}}
+.main{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 1.25rem;}
+.fw{width:100%;max-width:600px;transition:opacity .45s ease;}
+.fw.out{opacity:0;}
+.sc{display:flex;flex-direction:column;align-items:center;gap:1.5rem;width:100%;}
+.tm{font-family:'Cinzel',serif;font-size:clamp(2rem,7vw,2.9rem);font-weight:700;letter-spacing:.16em;color:#C9A84C;line-height:1.2;text-align:center;}
+.ts2{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.5em;color:rgba(201,168,76,.4);text-align:center;margin-bottom:.2rem;}
+.tact{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.5em;color:rgba(201,168,76,.34);text-align:center;}
+.tsec{font-family:'Cinzel',serif;font-size:clamp(1.05rem,3.4vw,1.4rem);font-weight:600;letter-spacing:.1em;color:#C9A84C;text-align:center;margin-top:.3rem;}
+.hint{font-style:italic;font-size:1rem;color:rgba(201,168,76,.55);line-height:1.7;text-align:center;}
+.dv{display:flex;align-items:center;gap:10px;width:100%;max-width:300px;margin:0 auto;}
+.dll{flex:1;height:1px;}.dll.l{background:linear-gradient(to right,transparent,rgba(201,168,76,.5));}.dll.r{background:linear-gradient(to left,transparent,rgba(201,168,76,.5));}
+.dd{width:6px;height:6px;background:#C9A84C;transform:rotate(45deg);flex-shrink:0;}
+.dbox{border:1px solid rgba(201,168,76,.2);background:rgba(12,8,22,.78);padding:1.4rem 1.1rem;position:relative;width:100%;}
+.dbox::before,.dbox::after{content:'';position:absolute;width:15px;height:15px;border-color:rgba(201,168,76,.45);border-style:solid;}
+.dbox::before{top:4px;left:4px;border-width:1px 0 0 1px;}
+.dbox::after{bottom:4px;right:4px;border-width:0 1px 1px 0;}
+.btn{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.32em;color:#C9A84C;background:transparent;border:1px solid rgba(201,168,76,.5);padding:.95rem 2.4rem;cursor:pointer;transition:all .3s;min-height:48px;max-width:92vw;}
+.btn:hover{background:rgba(201,168,76,.07);border-color:#C9A84C;box-shadow:0 0 22px rgba(201,168,76,.12);}
+.btn:active{transform:scale(.97);}
+.ltr{background:linear-gradient(155deg,#f3e9d0 0%,#e6d4b4 55%,#ede2c7 100%);color:#2A1A08;padding:2.3rem 2rem 1.9rem;box-shadow:0 8px 55px rgba(0,0,0,.72),inset 0 0 20px rgba(0,0,0,.04);text-align:left;position:relative;font-size:1.02rem;line-height:1.8;}
+.ltr::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(transparent,transparent 30px,rgba(90,60,20,.065) 30px,rgba(90,60,20,.065) 31px);pointer-events:none;z-index:0;}
+.ltr>*{position:relative;z-index:1;}
+.lhd{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.32em;color:#8B6030;text-align:center;border-bottom:1px solid rgba(139,96,48,.3);padding-bottom:.7rem;margin-bottom:1.3rem;}
+.poem{font-style:italic;color:#2A1A08;}
+.pl{display:block;margin:.28rem 0;}
+.lsg{margin-top:1.3rem;border-top:1px solid rgba(120,90,40,.2);padding-top:.85rem;font-style:italic;color:#5A3A18;font-size:.92rem;text-align:right;}
+.iw{display:flex;flex-direction:column;align-items:center;gap:.6rem;width:100%;}
+.ilbl{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.4em;color:rgba(201,168,76,.45);text-transform:uppercase;}
+.inp{background:transparent;border:none;border-bottom:1px solid rgba(201,168,76,.32);color:#E8C97A;font-family:'Cinzel',serif;font-size:1.15rem;letter-spacing:.32em;padding:.5rem .4rem;outline:none;text-align:center;width:clamp(160px,64vw,210px);text-transform:uppercase;transition:border-color .3s;}
+.inp:focus{border-bottom-color:rgba(201,168,76,.75);}
+.inp::placeholder{color:rgba(201,168,76,.18);letter-spacing:.2em;}
+.er{font-style:italic;color:#AA4040;font-size:.92rem;min-height:1.3rem;text-align:center;line-height:1.4;padding:0 .5rem;}
+.glist{display:flex;flex-direction:column;gap:8px;width:100%;}
+.gcard{display:flex;justify-content:space-between;align-items:center;padding:.75rem 1rem;border:1px solid rgba(201,168,76,.18);background:rgba(201,168,76,.02);}
+.gname{font-style:italic;font-size:1.05rem;color:#d8cbb0;}
+.gno{font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.14em;color:rgba(201,168,76,.7);white-space:nowrap;}
+.clues{margin-top:1rem;border-top:1px solid rgba(201,168,76,.12);padding-top:.9rem;}
+.ctitle{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.35em;color:rgba(201,168,76,.4);text-transform:uppercase;text-align:center;margin-bottom:.7rem;}
+.clue{font-style:italic;font-size:.97rem;color:#c0b298;line-height:1.55;padding:.22rem 0 .22rem 1.2rem;position:relative;}
+.clue::before{content:'\25C8';position:absolute;left:0;top:.3rem;color:rgba(201,168,76,.5);font-size:.7rem;}
+.cnums{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin:.3rem 0 .2rem;}
+.cnum{font-family:'Cinzel',serif;font-size:1.5rem;color:#E8C97A;width:48px;height:48px;border:1px solid rgba(201,168,76,.35);display:flex;align-items:center;justify-content:center;background:rgba(201,168,76,.03);}
+.ckey{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.28em;color:rgba(201,168,76,.45);text-align:center;text-transform:uppercase;}
+.rvw{position:relative;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.rvi{position:relative;z-index:1;max-width:560px;width:100%;display:flex;flex-direction:column;align-items:center;gap:1.4rem;padding:3rem 1.4rem;text-align:center;}
+.door{position:absolute;top:0;bottom:0;width:50%;z-index:10;transition:transform 2.3s cubic-bezier(.4,0,.18,1);display:flex;align-items:center;}
+.door.L{left:0;background:linear-gradient(to right,#06040c,#140a1e);border-right:2px solid rgba(201,168,76,.85);justify-content:flex-end;padding-right:1.4rem;}
+.door.R{right:0;background:linear-gradient(to left,#06040c,#140a1e);border-left:2px solid rgba(201,168,76,.85);padding-left:1.4rem;}
+.door.L::before,.door.R::before{content:'';position:absolute;inset:8px;border:1px solid rgba(201,168,76,.07);}
+.do .door.L{transform:translateX(-100%);}
+.do .door.R{transform:translateX(100%);}
+.dorn{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.3em;color:rgba(201,168,76,.2);writing-mode:vertical-rl;user-select:none;}
+.rj{font-family:'Cinzel',serif;font-size:clamp(.74rem,2.6vw,.98rem);letter-spacing:.3em;color:rgba(201,168,76,.65);text-transform:uppercase;}
+.rn{font-family:'Cinzel',serif;font-size:clamp(1.5rem,6.5vw,2.6rem);font-weight:700;color:#E8C97A;letter-spacing:.08em;}
+.rb{font-style:italic;font-size:1.12rem;line-height:1.9;color:#bfaf9a;max-width:410px;}
+.bk{border:1px solid rgba(201,168,76,.25);width:100%;max-width:360px;background:rgba(201,168,76,.025);}
+.br{display:flex;align-items:baseline;gap:1rem;padding:.6rem 1.2rem;border-bottom:1px solid rgba(201,168,76,.08);}
+.br:last-child{border-bottom:none;}
+.bkl{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.26em;color:rgba(201,168,76,.4);min-width:64px;text-transform:uppercase;text-align:left;}
+.bvl{font-style:italic;font-size:1rem;color:#e8d9b5;text-align:left;}
+.gift{font-family:'Cinzel',serif;font-size:clamp(1.3rem,5vw,1.9rem);font-weight:700;color:#E8C97A;letter-spacing:.06em;line-height:1.2;text-align:center;}
+.giftsub{font-style:italic;font-size:.95rem;color:rgba(201,168,76,.55);letter-spacing:.04em;}
+.video{position:relative;width:100%;max-width:440px;aspect-ratio:16/9;border:1px solid rgba(201,168,76,.35);background:#000;box-shadow:0 8px 40px rgba(0,0,0,.6);}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.vfacade{position:absolute;inset:0;width:100%;height:100%;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;background:radial-gradient(ellipse at 50% 40%,rgba(40,22,60,.9),#06040c);}
+.vplay{width:62px;height:62px;border-radius:50%;border:1px solid rgba(201,168,76,.55);background:rgba(201,168,76,.08);display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.vplay::after{content:'';width:0;height:0;border-style:solid;border-width:10px 0 10px 17px;border-color:transparent transparent transparent #C9A84C;margin-left:5px;}
+.vfacade:hover .vplay{background:rgba(201,168,76,.16);box-shadow:0 0 26px rgba(201,168,76,.32);}
+.vlabel{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;color:rgba(201,168,76,.65);text-transform:uppercase;}
+.vlink{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.24em;color:rgba(201,168,76,.45);text-decoration:none;border-bottom:1px solid rgba(201,168,76,.22);padding-bottom:2px;text-transform:uppercase;transition:color .3s;}
+.vlink:hover{color:#C9A84C;}
+.rkey{font-size:2rem;animation:fk 3s ease-in-out infinite;}
+@keyframes fk{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(4deg)}}
+.rcoda{font-style:italic;color:rgba(201,168,76,.3);font-size:.85rem;letter-spacing:.08em;}
+@keyframes fu{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
+.a1{animation:fu .85s ease .05s both}.a2{animation:fu .85s ease .18s both}.a3{animation:fu .85s ease .32s both}.a4{animation:fu .85s ease .46s both}.a5{animation:fu .85s ease .60s both}.a6{animation:fu .85s ease .74s both}.a7{animation:fu .85s ease .88s both}
+@media (max-width:480px){
+  .main{padding:2rem .9rem;}
+  .ltr{padding:1.7rem 1.25rem 1.5rem;font-size:.98rem;line-height:1.75;}
+  .tm{letter-spacing:.1em;}
+  .hint{font-size:.94rem;}
+  .gcard{padding:.7rem .85rem;}
+  .gname{font-size:1rem;}
+  .cnum{width:42px;height:42px;font-size:1.3rem;}
+  .rvi{padding:2.5rem 1.2rem;}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function(){
+  var app=document.getElementById('app');
+  var screen='landing';
+
+  function norm(s){return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[^A-Z0-9]/g,'');}
+  function lastNum(s){var m=(s||'').match(/\d+/g);return m?m[m.length-1]:'';}
+
+  var CREST=function(size){
+    var h=size*1.25;
+    return '<svg width="'+size+'" height="'+h+'" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      +'<path d="M40 4 L76 22 L76 62 Q76 90 40 97 Q4 90 4 62 L4 22 Z" stroke="rgba(201,168,76,.9)" stroke-width="1.5" fill="rgba(8,4,16,.8)"/>'
+      +'<path d="M40 10 L70 26 L70 62 Q70 84 40 90 Q10 84 10 62 L10 26 Z" stroke="rgba(201,168,76,.25)" stroke-width=".7" fill="none"/>'
+      +'<path d="M24 33 L28 22 L34 30 L40 18 L46 30 L52 22 L56 33 Z" stroke="rgba(201,168,76,.85)" stroke-width="1" fill="rgba(201,168,76,.07)"/>'
+      +'<rect x="22" y="32" width="36" height="4.5" fill="rgba(201,168,76,.1)" stroke="rgba(201,168,76,.8)" stroke-width=".7"/>'
+      +'<circle cx="40" cy="50" r="4.5" fill="rgba(201,168,76,.85)"/>'
+      +'<path d="M36.6 53 L43.4 53 L45.4 64 L34.6 64 Z" fill="rgba(201,168,76,.85)"/>'
+      +'<line x1="20" y1="72" x2="60" y2="72" stroke="rgba(201,168,76,.4)" stroke-width=".7"/>'
+      +'<line x1="26" y1="76" x2="54" y2="76" stroke="rgba(201,168,76,.2)" stroke-width=".5"/>'
+      +'<rect x="16" y="69.5" width="5" height="5" transform="rotate(45 18.5 72)" fill="rgba(201,168,76,.7)"/>'
+      +'<rect x="58.5" y="69.5" width="5" height="5" transform="rotate(45 61 72)" fill="rgba(201,168,76,.7)"/>'
+      +'</svg>';
+  };
+  var DIV='<div class="dv"><div class="dll l"></div><div class="dd"></div><div class="dll r"></div></div>';
+
+  var GUESTS=[
+    {nom:'Le Renard',no:'carton n&deg; 06'},
+    {nom:'Le Corbeau',no:'carton n&deg; 11'},
+    {nom:'Le Cygne',no:'carton n&deg; 14'},
+    {nom:'Le Loup',no:'carton n&deg; 22'}
+  ];
+  var CLUES=[
+    'Le Loup fut le tout dernier &agrave; para&icirc;tre cette nuit-l&agrave;.',
+    'Le Renard ouvrit le bal : nul ne franchit les portes avant lui.',
+    'Le Cygne se pr&eacute;senta juste avant le Loup.'
+  ];
+
+  var screens={
+    landing:function(){
+      return '<div class="sc">'
+        +'<div class="a1">'+CREST(92)+'</div>'
+        +'<div class="a2"><p class="ts2">&#10022; UNE &Eacute;NIGME SCELL&Eacute;E &#10022;</p><h1 class="tm">L\'INVITATION</h1></div>'
+        +'<div class="a3">'+DIV+'</div>'
+        +'<p class="a4 hint">Vous avez re&ccedil;u une invitation.<br><span style="color:rgba(201,168,76,.38);font-size:.92rem">Trois &eacute;nigmes vous s&eacute;parent de votre pr&eacute;sent.</span></p>'
+        +'<div class="a5" style="display:flex;flex-direction:column;align-items:center;gap:1.1rem">'
+        +'<svg width="78" height="58" viewBox="0 0 78 58" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        +'<rect x="2" y="8" width="74" height="48" rx="2" fill="rgba(22,12,4,.95)" stroke="rgba(201,168,76,.75)" stroke-width="1"/>'
+        +'<polyline points="2,8 39,35 76,8" stroke="rgba(201,168,76,.75)" stroke-width="1" fill="none"/>'
+        +'<line x1="2" y1="56" x2="29" y2="34" stroke="rgba(201,168,76,.3)" stroke-width=".7"/>'
+        +'<line x1="76" y1="56" x2="49" y2="34" stroke="rgba(201,168,76,.3)" stroke-width=".7"/>'
+        +'<circle cx="39" cy="35" r="11" fill="#680808" stroke="rgba(201,168,76,.75)" stroke-width="1"/>'
+        +'<circle cx="39" cy="35" r="7.5" fill="none" stroke="rgba(201,168,76,.3)" stroke-width=".5"/>'
+        +'<text x="39" y="39" text-anchor="middle" fill="rgba(232,201,122,.95)" font-family="Georgia,serif" font-size="10" font-weight="700">&#10022;</text>'
+        +'</svg>'
+        +'<button class="btn" id="start">Briser le sceau</button>'
+        +'</div></div>';
+    },
+    p1:function(){
+      return '<div class="sc">'
+        +'<div class="a1" style="width:100%"><p class="tact">Acte I &middot; La Missive</p><h2 class="tsec">Les vers du Gardien</h2></div>'
+        +'<div class="a2" style="width:100%">'+DIV+'</div>'
+        +'<p class="a3 hint" style="font-size:.95rem">Un po&egrave;me, et rien d\'autre. Le Gardien ne souligne jamais ses secrets&hellip;<br>Seul le commencement de chaque vers &eacute;claire le chemin.</p>'
+        +'<div class="a4" style="width:100%"><div class="ltr">'
+        +'<div class="lhd">&#10022; MISSIVE DU GARDIEN &#10022;</div>'
+        +'<div class="poem">'
+        +'<span class="pl">Masqu&eacute;e, la nuit r&eacute;v&egrave;le ce que le jour dissimule.</span>'
+        +'<span class="pl">Il est une heure o&ugrave; les secrets quittent l\'ombre.</span>'
+        +'<span class="pl">Nul cadran ne la sonne deux fois la m&ecirc;me.</span>'
+        +'<span class="pl">Un convive viendra, le visage &agrave; demi voil&eacute;.</span>'
+        +'<span class="pl">Ignore les apparences : lis ce qui se cache.</span>'
+        +'<span class="pl">Trouve cette heure, et la premi&egrave;re porte c&eacute;dera.</span>'
+        +'</div>'
+        +'<div class="lsg">&mdash; Le Gardien des &Eacute;nigmes</div>'
+        +'</div></div>'
+        +'<div class="a5 iw"><p class="ilbl">Le mot cach&eacute;</p>'
+        +'<input class="inp" id="i1" type="text" maxlength="14" placeholder="&middot; &middot; &middot; &middot; &middot; &middot;" autocomplete="off">'
+        +'<p class="er" id="e1">&nbsp;</p><button class="btn" id="b1">R&eacute;v&eacute;ler</button></div>'
+        +'</div>';
+    },
+    p2:function(){
+      var cards='';
+      for(var i=0;i<GUESTS.length;i++){cards+='<div class="gcard"><span class="gname">'+GUESTS[i].nom+'</span><span class="gno">'+GUESTS[i].no+'</span></div>';}
+      var cl='';for(var j=0;j<CLUES.length;j++){cl+='<p class="clue">'+CLUES[j]+'</p>';}
+      return '<div class="sc">'
+        +'<div class="a1" style="width:100%"><p class="tact">Acte II &middot; Les Convives</p><h2 class="tsec">Le bal masqu&eacute;</h2></div>'
+        +'<div class="a2" style="width:100%">'+DIV+'</div>'
+        +'<p class="a3 hint" style="font-size:.95rem">Quatre convives masqu&eacute;s ont rejoint le bal, un &agrave; chaque heure : <strong style="color:rgba(201,168,76,.75);font-weight:600">22h, 23h, minuit et 1h</strong>. Seul celui arriv&eacute; &agrave; <em>l\'heure que tu viens de percer</em> d&eacute;tient l\'indice suivant. D&eacute;masque-le, puis lis le num&eacute;ro de son carton.</p>'
+        +'<div class="a4 dbox">'
+        +'<div class="glist">'+cards+'</div>'
+        +'<div class="clues"><p class="ctitle">Ce que l\'on murmure</p>'+cl+'</div>'
+        +'</div>'
+        +'<div class="a5 iw"><p class="ilbl">Num&eacute;ro du carton</p>'
+        +'<input class="inp" id="i2" type="text" maxlength="4" placeholder="&middot; &middot;" autocomplete="off" inputmode="numeric">'
+        +'<p class="er" id="e2">&nbsp;</p><button class="btn" id="b2">Confirmer</button></div>'
+        +'</div>';
+    },
+    p3:function(){
+      var nums=[3,1,4,5,1,21],cn='';
+      for(var i=0;i<nums.length;i++){cn+='<div class="cnum">'+nums[i]+'</div>';}
+      return '<div class="sc">'
+        +'<div class="a1" style="width:100%"><p class="tact">Acte III &middot; Le Coffret</p><h2 class="tsec">Le dernier sceau</h2></div>'
+        +'<div class="a2" style="width:100%">'+DIV+'</div>'
+        +'<p class="a3 hint" style="font-size:.95rem">Tu as perc&eacute; l\'heure et d&eacute;masqu&eacute; le convive. Il ne reste qu\'un sceau. Sur le couvercle du coffret, six nombres grav&eacute;s.</p>'
+        +'<div class="a4 dbox" style="display:flex;flex-direction:column;align-items:center;gap:.9rem">'
+        +'<div class="cnums">'+cn+'</div>'
+        +'<p class="ckey">A = 1 &nbsp;&middot;&nbsp; B = 2 &nbsp;&middot;&nbsp; C = 3 &nbsp;&middot;&nbsp; &hellip; &nbsp;&middot;&nbsp; Z = 26</p>'
+        +'<p class="hint" style="font-size:.92rem;margin-top:.2rem">Chaque nombre cache une lettre, selon sa place dans l\'alphabet.<br>D&eacute;chiffre le mot, et le coffret s\'ouvrira.</p>'
+        +'</div>'
+        +'<div class="a5 iw"><p class="ilbl">Le mot du coffret</p>'
+        +'<input class="inp" id="i3" type="text" maxlength="14" placeholder="&middot; &middot; &middot; &middot; &middot; &middot;" autocomplete="off">'
+        +'<p class="er" id="e3">&nbsp;</p><button class="btn" id="b3">Ouvrir le coffret</button></div>'
+        +'</div>';
+    },
+    reveal:function(){
+      return '<div class="rvw" id="rvw"><div class="rvi">'
+        +'<div class="a1">'+CREST(70)+'</div>'
+        +'<div class="a2"><p class="rj">Joyeux Anniversaire</p><h1 class="rn">Ton cadeau</h1></div>'
+        +'<div class="a3">'+DIV+'</div>'
+        +'<p class="a4 rb">Tu as perc&eacute; chaque &eacute;nigme et ouvert le coffret. Voici ce qui t\'attend dans le monde r&eacute;el &mdash; une nuit dont tu te souviendras&hellip;</p>'
+        +'<div class="a5" style="display:flex;flex-direction:column;align-items:center;gap:.35rem">'
+        +'<h2 class="gift">Le Grand H&ocirc;tel de Paris</h2>'
+        +'<p class="giftsub">Escape game immersif &middot; The One Escape, Paris</p>'
+        +'</div>'
+        +'<div class="a5 video" id="vidwrap"><button class="vfacade" id="vfacade" type="button" aria-label="Lire la bande-annonce"><span class="vplay"></span><span class="vlabel">Voir la bande-annonce</span></button></div>'
+        +'<a class="a5 vlink" id="vlink" href="https://www.youtube.com/watch?v=hgI_Cfw0qRw&t=1s" target="_blank" rel="noopener">Ouvrir sur YouTube &#8599;</a>'
+        +'<div class="a6 bk">'
+        +'<div class="br"><span class="bkl">Lieu</span><span class="bvl">The One Escape &mdash; 39 rue de Palestro, Paris</span></div>'
+        +'<div class="br"><span class="bkl">Dur&eacute;e</span><span class="bvl">1h30 d\'aventure</span></div>'
+        +'<div class="br"><span class="bkl">Ambiance</span><span class="bvl">Immersive &amp; frissonnante</span></div>'
+        +'<div class="br"><span class="bkl">Quand</span><span class="bvl">&Agrave; choisir ensemble &#10084;</span></div>'
+        +'</div>'
+        +'<div class="a7 rkey">&#128273;</div>'
+        +'<p class="a7 rcoda">Choisis ta date&hellip; et pr&eacute;pare-toi &agrave; passer la nuit.</p>'
+        +'</div>'
+        +'<div class="door L"><span class="dorn">&#10022; &middot; &#10022; &middot; &#10022;</span></div>'
+        +'<div class="door R"><span class="dorn">&#10022; &middot; &#10022; &middot; &#10022;</span></div>'
+        +'</div>';
+    }
+  };
+
+  function render(){
+    if(screen==='reveal'){
+      app.innerHTML='<div class="bg"></div>'+screens.reveal();
+      setTimeout(function(){var r=document.getElementById('rvw');if(r)r.classList.add('do');},750);
+      var vf=document.getElementById('vfacade');
+      if(vf){vf.onclick=function(){
+        document.getElementById('vidwrap').innerHTML='<iframe src="https://www.youtube.com/embed/hgI_Cfw0qRw?autoplay=1&start=1" title="Le Grand Hotel de Paris" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+      };}
+      return;
+    }
+    app.innerHTML='<div class="bg"></div><div class="main"><div class="fw">'+screens[screen]()+'</div></div>';
+    attach();
+  }
+  function go(next){
+    var fw=app.querySelector('.fw');
+    if(fw)fw.classList.add('out');
+    setTimeout(function(){screen=next;render();window.scrollTo(0,0);},480);
+  }
+  function bind(inputId,btnId,errId,test,wrong,next){
+    var inp=document.getElementById(inputId),btn=document.getElementById(btnId),err=document.getElementById(errId);
+    var check=function(){if(test(inp.value)){go(next);}else{err.textContent=wrong;}};
+    btn.onclick=check;
+    inp.onkeydown=function(e){if(e.key==='Enter')check();};
+    inp.oninput=function(){err.innerHTML='&nbsp;';};
+    inp.focus();
+  }
+  function attach(){
+    if(screen==='landing'){document.getElementById('start').onclick=function(){go('p1');};}
+    if(screen==='p1'){bind('i1','b1','e1',function(v){return norm(v)==='MINUIT';},"Ce n'est pas encore le mot. Lis le tout premier signe de chaque vers, de haut en bas\u2026",'p2');}
+    if(screen==='p2'){bind('i2','b2','e2',function(v){return lastNum(v)==='14';},"Ce convive n'est pas le bon. Qui donc est arriv\u00e9 \u00e0 minuit\u2026 ?",'p3');}
+    if(screen==='p3'){bind('i3','b3','e3',function(v){return norm(v)==='CADEAU';},"Le coffret r\u00e9siste. Compte chaque lettre depuis le d\u00e9but de l'alphabet\u2026",'reveal');}
+  }
+  render();
+})();
+</script>
+</body>
+</html>
